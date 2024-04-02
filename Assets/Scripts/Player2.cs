@@ -1,5 +1,7 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Player2 : MonoBehaviour
@@ -32,18 +34,21 @@ public class Player2 : MonoBehaviour
         float inputY = Input.GetAxisRaw("Vertical2");
         float towardsDirection;
 
-        racketDirection = new Vector2(0, inputY).normalized;
-
-        if (isAI)
+        if (!PauseMenu.isPaused)
         {
-            if (IsIncoming() && ReadyToMove())
+            racketDirection = new Vector2(0, inputY).normalized;
+
+            if (isAI)
             {
-                if (paddle.position.y > ball.transform.position.y)
+                if (IsIncoming() && ReadyToMove() && AdjustmentNeeded())
                 {
-                    towardsDirection = -1;
+                    if (paddle.position.y > ball.transform.position.y)
+                    {
+                        towardsDirection = -1;
+                    }
+                    else { towardsDirection = 1; }
+                    racketDirection = new Vector2(0, towardsDirection).normalized;
                 }
-                else { towardsDirection = 1; }
-                racketDirection = new Vector2(0, towardsDirection).normalized;
             }
         }
     }
@@ -62,5 +67,10 @@ public class Player2 : MonoBehaviour
     private bool ReadyToMove()
     {
         return ball.transform.position.x > -3;
+    }
+
+    private bool AdjustmentNeeded()
+    {
+        return Math.Abs(paddle.position.y - ball.transform.position.y) > .2;
     }
 }

@@ -69,6 +69,7 @@
     <Compile Include="Assets\Scripts\ScoreManager.cs" />
     <Compile Include="Assets\Scripts\GlobalSettings.cs" />
     <Compile Include="Assets\Scripts\Player1.cs" />
+    <Compile Include="Assets\Scripts\PauseMenu.cs" />
     <Compile Include="Assets\Scripts\Cleanup.cs" />
     <Compile Include="Assets\Scripts\Player2.cs" />
     <Compile Include="Assets\Scripts\Music.cs" />

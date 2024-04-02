@@ -18,9 +18,13 @@ public class Player1 : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        float inputY = Input.GetAxisRaw("Vertical");
+        if (!PauseMenu.isPaused)
+        {
+            float inputY = Input.GetAxisRaw("Vertical");
 
-        racketDirection = new Vector2(0, inputY).normalized;
+            racketDirection = new Vector2(0, inputY).normalized;
+        }
+
     }
 
     private void FixedUpdate()
