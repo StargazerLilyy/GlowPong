@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -13,6 +14,12 @@ public class BallMovement : MonoBehaviour
     private int hitCounter = 0;
 
     private Rigidbody2D rb;
+
+    //Get Functions
+    public Vector2 getVelocity()
+    {
+        return rb.velocity;
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -48,10 +55,8 @@ public class BallMovement : MonoBehaviour
     {
         direction = direction.normalized;
 
-        //float randFactor = Random.Range(90, 110);
-        // float ballSpeed = randFactor * (startingSpeed + hitCounter * extraSpeed) / 100;
-        float ballSpeed = (startingSpeed + hitCounter * extraSpeed);
-
+        float rand = UnityEngine.Random.Range(-2f, hitCounter);
+        float ballSpeed = rand + (startingSpeed + hitCounter * extraSpeed);
 
         rb.velocity = direction * ballSpeed;
     }

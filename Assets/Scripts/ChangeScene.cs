@@ -14,4 +14,16 @@ public class ChangeScene : MonoBehaviour
     {
         Application.Quit();
     }
+
+    public void StartSinglePlayer(int sceneID)
+    {
+        GlobalSettings.singlePlayer = true;
+        MoveToScene(sceneID);
+    }
+
+    public void StartMultiPlayer(int sceneID)
+    {
+        GlobalSettings.singlePlayer = false;
+        MoveToScene(sceneID);
+    }
 }

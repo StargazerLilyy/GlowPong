@@ -6,25 +6,61 @@ public class Player2 : MonoBehaviour
 {
     public float racketSpeed;
 
-    private Rigidbody2D rb;
+    public BallMovement ball;
+
+    private bool isAI;
+    private Rigidbody2D paddle;
     private Vector2 racketDirection;
+    private Vector2 forwardDirection;
 
     // Start is called before the first frame update
     void Start()
     {
-        rb = GetComponent<Rigidbody2D>();
+        paddle = GetComponent<Rigidbody2D>();
+
+        isAI = GlobalSettings.singlePlayer;
+        if (isAI)
+        {
+            forwardDirection = Vector2.left;
+            racketSpeed = 4;
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
         float inputY = Input.GetAxisRaw("Vertical2");
+        float towardsDirection;
 
         racketDirection = new Vector2(0, inputY).normalized;
+
+        if (isAI)
+        {
+            if (IsIncoming() && ReadyToMove())
+            {
+                if (paddle.position.y > ball.transform.position.y)
+                {
+                    towardsDirection = -1;
+                }
+                else { towardsDirection = 1; }
+                racketDirection = new Vector2(0, towardsDirection).normalized;
+            }
+        }
     }
 
     private void FixedUpdate()
     {
-        rb.velocity = racketDirection * racketSpeed;
+        paddle.velocity = racketDirection * racketSpeed;
+    }
+
+    private bool IsIncoming()
+    {
+        float dotP = Vector2.Dot(ball.getVelocity(), forwardDirection);
+        return dotP < 0f;
+    }
+
+    private bool ReadyToMove()
+    {
+        return ball.transform.position.x > -3;
     }
 }

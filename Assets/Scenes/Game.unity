@@ -172,7 +172,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d4a85f1df5416144eb801822e6209ca1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameOverScore: 2
+  gameOverScore: 7
   player1ScoreText: {fileID: 1504832956}
   player2ScoreText: {fileID: 1641459231}
 --- !u!1 &352849799
@@ -947,6 +947,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   racketSpeed: 10
+  isAI: 1
+  ball: {fileID: 1857549102}
 --- !u!1 &1363322040
 GameObject:
   m_ObjectHideFlags: 0
@@ -1860,7 +1862,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   startingSpeed: 5
   extraSpeed: 1
-  maxExtraSpeed: 5
+  maxExtraSpeed: 7
   servePlayer1: 1
 --- !u!114 &1857549103
 MonoBehaviour:
