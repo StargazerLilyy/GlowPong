@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Animations;
 
 public class Player2 : MonoBehaviour
 {
@@ -14,6 +15,9 @@ public class Player2 : MonoBehaviour
     private Rigidbody2D paddle;
     private Vector2 racketDirection;
     private Vector2 forwardDirection;
+    private AIDifficulty easy = AIDifficulty.Easy;
+    private AIDifficulty medium = AIDifficulty.Medium;
+    private AIDifficulty hard = AIDifficulty.Hard;
 
     // Start is called before the first frame update
     void Start()
@@ -24,7 +28,10 @@ public class Player2 : MonoBehaviour
         if (isAI)
         {
             forwardDirection = Vector2.left;
-            racketSpeed = 4;
+
+            if (GlobalSettings.singlePlayerDifficulty == easy) { racketSpeed = 3; }
+            else { racketSpeed = 4; };
+
         }
     }
 
@@ -36,7 +43,6 @@ public class Player2 : MonoBehaviour
 
         if (!PauseMenu.isPaused)
         {
-            racketDirection = new Vector2(0, inputY).normalized;
 
             if (isAI)
             {
@@ -49,6 +55,27 @@ public class Player2 : MonoBehaviour
                     else { towardsDirection = 1; }
                     racketDirection = new Vector2(0, towardsDirection).normalized;
                 }
+                else
+                {
+                    if (!IsIncoming() && GlobalSettings.singlePlayerDifficulty == hard && NotCentered())
+                    {
+                        if (paddle.position.y > 0)
+                        {
+                            towardsDirection = -1;
+                        }
+                        else { towardsDirection = 1; }
+                        racketDirection = new Vector2(0, towardsDirection).normalized;
+                    }
+                    else
+                    {
+
+                        racketDirection = new Vector2(0, 0).normalized;
+                    }
+                }
+            }
+            else
+            {
+                racketDirection = new Vector2(0, inputY).normalized;
             }
         }
     }
@@ -66,11 +93,18 @@ public class Player2 : MonoBehaviour
 
     private bool ReadyToMove()
     {
-        return ball.transform.position.x > -3;
+        if (GlobalSettings.singlePlayerDifficulty == easy) { return true; }
+        else if (GlobalSettings.singlePlayerDifficulty == medium) { return ball.transform.position.x > -3; }
+        else { return ball.transform.position.x > -2.5; }
     }
 
     private bool AdjustmentNeeded()
     {
         return Math.Abs(paddle.position.y - ball.transform.position.y) > .2;
+    }
+
+    private bool NotCentered()
+    {
+        return Math.Abs(paddle.position.y) > .2;
     }
 }

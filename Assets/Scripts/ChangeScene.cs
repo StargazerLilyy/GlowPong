@@ -15,10 +15,29 @@ public class ChangeScene : MonoBehaviour
         Application.Quit();
     }
 
-    public void StartSinglePlayer(int sceneID)
+    public void GoToSelectDifficulty(int sceneID)
     {
-        GlobalSettings.singlePlayer = true;
         MoveToScene(sceneID);
+    }
+
+    public void StartSinglePlayer(int selectedDifficulty)
+    {
+        switch (selectedDifficulty)
+        {
+            case 1:
+                GlobalSettings.singlePlayerDifficulty = AIDifficulty.Easy;
+                break;
+            case 2:
+                GlobalSettings.singlePlayerDifficulty = AIDifficulty.Medium;
+                break;
+            case 3:
+                GlobalSettings.singlePlayerDifficulty = AIDifficulty.Hard;
+                break;
+            default:
+                break;
+        }
+        GlobalSettings.singlePlayer = true;
+        MoveToScene(1);
     }
 
     public void StartMultiPlayer(int sceneID)

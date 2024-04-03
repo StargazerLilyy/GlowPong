@@ -14,4 +14,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/GameOver.unity
     guid: 17a13a04c3d61c64eb243bdcaa9f1a8c
+  - enabled: 1
+    path: Assets/Scenes/SinglePlayerDifficulty.unity
+    guid: cf19fb58a7e981b40ba7bf6356fb0d9c
   m_configObjects: {}
